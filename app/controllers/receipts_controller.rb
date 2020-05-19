@@ -1,10 +1,21 @@
 class ReceiptsController < ApplicationController
   before_action :set_receipt, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_account!
 
   # GET /receipts
   # GET /receipts.json
   def index
     @receipts = Receipt.all
+    role = current_account.employee.department.role
+    if role == "Seller"
+      @receipts = @receipts.select { |receipt|
+        receipt.shop == current_account.employee.shop
+      }
+    elsif role == "Administrator"
+    else
+     redirect_to "/", alert: "You are not allowed to acess this page."
+    end
+      
   end
 
   # GET /receipts/1
@@ -14,7 +25,14 @@ class ReceiptsController < ApplicationController
 
   # GET /receipts/new
   def new
+    if current_account.employee.shop == nil
+      redirect_to({action: "index"}, alert: "You should have a shop assigned to you in order to create receipts.")
+      return
+    end
     @receipt = Receipt.new
+    @receipt.shop = current_account.employee.shop
+    @receipt.employee = current_account.employee
+    @all_items = Item.all
   end
 
   # GET /receipts/1/edit
@@ -65,6 +83,7 @@ class ReceiptsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_receipt
       @receipt = Receipt.find(params[:id])
+      @all_items = Item.all
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

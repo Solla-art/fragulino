@@ -65,6 +65,8 @@ class EmployeesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_employee
       @employee = Employee.find(params[:id])
+      @departments = Department.all
+      @shops = Shop.all
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

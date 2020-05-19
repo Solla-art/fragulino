@@ -14,8 +14,8 @@
   <tbody>
     <% @receipts.each do |receipt| %>
       <tr>
-        <td><%= receipt.shop_id %></td>
-        <td><%= receipt.employee_id %></td>
+        <td><%= receipt.shop.name %></td>
+        <td><%= receipt.employee.full_name %></td>
         <td><%= link_to 'Show', receipt %></td>
         <td><%= link_to 'Edit', edit_receipt_path(receipt) %></td>
         <td><%= link_to 'Destroy', receipt, method: :delete, data: { confirm: 'Are you sure?' } %></td>

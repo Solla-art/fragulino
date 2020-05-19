@@ -15,14 +15,18 @@
     <%= f.label :full_name %><br>
     <%= f.text_field :full_name %>
   </div>
+
+
   <div class="field">
-    <%= f.label :shop_id %><br>
-    <%= f.number_field :shop_id %>
+      <%= f.label "Shop" %><br />
+      <%= f.select(:shop_id, @shops.collect { |s| [s.name, s.id] }, { include_blank: true } ) %>
   </div>
+  
   <div class="field">
-    <%= f.label :department_id %><br>
-    <%= f.text_field :department_id %>
+      <%= f.label "Department" %><br />
+      <%= f.select(:department_id, @departments.collect { |d| [d.role, d.id] }, { include_blank: true } ) %>
   </div>
+  
   <div class="actions">
     <%= f.submit %>
   </div>

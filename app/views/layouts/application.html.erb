@@ -14,14 +14,31 @@
 
     <h4 class="my-0 mr-md-auto font-weight-normal">Oogle inc.</h4>
     <nav class="my-2 my-md-0 mr-md-3">
-    <%= link_to "Accounts", {controller: "accounts", action: "index"}, class: "p-2 text-dark"%>
-    <%= link_to "Employees", {controller: "employees", action: "index"}, class: "p-2 text-dark"%>
-    <%= link_to "Departments", {controller: "departments", action: "index"}, class: "p-2 text-dark"%>
-      <% if account_signed_in? %>
+    <% if account_signed_in? %>
+      <% role =  current_account.employee.department.role %>
+      <% if role == "Seller" %>
+        <%= link_to "New order", {controller: "receipts", action: "new"}, class: "p-2 text-dark" %>
+        <%= link_to "Order history", {controller: "receipts", action: "index"}, class: "p-2 text-dark" %>
+      <% end %>
+
+      <% if role == "HR department" %>
+        <%= link_to "Employees", {controller: "employees", action: "index"}, class: "p-2 text-dark" %>
+      <% end %>
+
+      <% if role == "Administrator" %>
+        <%= link_to "Accounts", {controller: "/accounts", action: "index"}, class: "p-2 text-dark" %>
+        <%= link_to "Employees", {controller: "/employees", action: "index"}, class: "p-2 text-dark" %>
+        <%= link_to "Departments", {controller: "/departments", action: "index"}, class: "p-2 text-dark" %>
+        <%= link_to "Shops", {controller: "/shops", action: "index"}, class: "p-2 text-dark" %>
+        <%= link_to "Analyze", "/", class: "p-2 text-dark" %>
+      <% end %>
+
+      <% if role == "Analyst" %>
+        <%= link_to "Analyze", "/", class: "p-2 text-dark" %>
+      <% end %>
+
       <span class="p-2 text-dark" > Hello, <%= current_account.employee.full_name %>!</span>
-      
       <%= link_to('Logout', destroy_account_session_path, method: :delete) %>       
-      
       <% end %>
     </nav>
   </div>

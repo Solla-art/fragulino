@@ -2,13 +2,16 @@
 
 <p>
   <strong>Shop:</strong>
-  <%= @receipt.shop_id %>
+  <%= @receipt.shop.name %>
 </p>
 
 <p>
   <strong>Employee:</strong>
-  <%= @receipt.employee_id %>
+  <%= @receipt.employee.full_name %>
 </p>
+
+// Readonly form here?
+
 
 <%= link_to 'Edit', edit_receipt_path(@receipt) %> |
 <%= link_to 'Back', receipts_path %>
