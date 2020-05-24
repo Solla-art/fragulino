@@ -1,0 +1,13 @@
+<tr class="receipt-row">
+  <%= f.hidden_field :receipt_id %>
+  <th scope='row' style='width:10%' class="index">0</th>
+  <td style='width:10%'> 
+    <%= f.select :item_id, @all_items.collect { |item| [ item.name, item.id, {data:{item_price: item.price}} ] }, {include_blank: true}, {class: "item-price-count"} %>
+  </td>
+  <td style='width:10%'>
+    <%= f.number_field :item_count, class: "item-price-count", value: 1 %>
+  </td>
+  <td class='price'></td>
+  <td class='cost'></td>
+  <%= f.hidden_field :_destroy %>
+</tr>

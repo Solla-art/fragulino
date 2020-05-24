@@ -1,52 +1,41 @@
 <div class="receipt-form">
   <%= form_for(@receipt) do |f| %>
-    <% if @receipt.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@receipt.errors.count, "error") %> prohibited this receipt from being saved:</h2>
+  <% if @receipt.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@receipt.errors.count, "error") %> prohibited this item from being saved:</h2>
 
-        <ul>
-        <% @receipt.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
+      <ul>
+      <% @receipt.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 
     <%= f.hidden_field :shop_id %>
     <%= f.hidden_field :employee_id %>
 
-
-    <div class="receipt-items">
     <table class="table">
-  <thead>
-    <tr>
-      <th scope="col" style="width:10%">#</th>
-      <th scope="col" style="width:80%">Name</th>
-      <th scope="col" style="width:10%">Count</th>
-      <th scope="col" style="width:10%">Price</th>
-      <th scope="col" style="width:10%">Cost</th>
-      
-    </tr>
-  </thead>
-  <tbody class="receipt-items">
-  </tbody>
-</table>
+      <thead>
+        <tr>
+          <th scope="col" style="width:10%">#</th>
+          <th scope="col" style="width:80%">Name</th>
+          <th scope="col" style="width:10%">Count</th>
+          <th scope="col" style="width:10%">Price</th>
+          <th scope="col" style="width:10%">Cost</th>
+        </tr>
+      </thead>
+      <tbody class="receipt-items">
+        <%= f.fields_for :receipt_items do |builder|%>
+        <%= render partial: "receipt_item_fields", locals: {f: builder} %>
+        <% end %>
+      </tbody>
+    </table>
 
-<div class="receipt-total"> Total: <span class="receipt-total-value">0.0</span></div>
-    </div>
-
-
-<div class="buttons">
-
-  <button type="button" onclick="javascript:AddNewItem()" class="btn btn-light">Add item</button>
-
-    <div class="button">
-      <div class="actions">
-        <%= f.submit %>
-      </div>
-  </div>
-
-    <% end %>
+    <div class="receipt-total"> Total: <span class="receipt-total-value">0.0</span></div>
+    <%= link_to_add_more_fields "Add newt item", f, :receipt_items, ".receipt-items" %><br>
+    <%= f.submit %>
+  <% end %>
 </div>
 
 <style>
@@ -67,45 +56,3 @@
     background-color: #eeeeee;
   }
 </style>
-
-<script>
-
-function AddNewItem() {
-  var el =  document.querySelector("tbody.receipt-items");
-  new_id = el.children.length + 1;
-  var new_row = document.createElement('tr');
-  new_row.setAttribute("id", "receipt_row_"+new_id);
-  new_row.innerHTML = "<th scope='row' style='width:10%'>" + new_id + "</th>" +
-  "<td style='width:10%'>" + 
-  "<select name='receipt[receipt_items]["+new_id+"][name]' id='receipt_items_"+new_id+"_name' onchange=ItemChanged("+new_id+")>" + 
-    +"<option selected value ></option>"+
-    <% @all_items.each do |item| %>
-      "<option value='<%=item.id%>' price='<%=item.price%>'> <%=item.name%> </option>" +
-    <% end %>
-  "</select>"+
-  "</td>" +
-  "<td style='width:10%'>"+
-    "<input type='number' min=1 value=1 name='receipt[receipt_items]["+new_id+"][count]' id='receipt_items_"+new_id+"_count' onchange=ItemChanged("+new_id+")></input>"+
-  "</td>"+
-  "<td class='price'></td>" +
-  "<td class='cost'></td>";
-  el.appendChild(new_row);
-  ItemChanged(new_id);
-}
-
-function ItemChanged(id) {
-  let sel = document.querySelector("#receipt_items_"+id+"_name");
-  let price = sel.querySelector('option[value="'+sel.value+'"]').attributes.price.value;
-  let count = document.querySelector("#receipt_items_"+id+"_count").value;
-  document.querySelector("#receipt_row_"+id+" .price").innerHTML = price;
-  document.querySelector("#receipt_row_"+id+" .cost").innerHTML = Number(price) * Number(count);
-
-  document.querySelectorAll(".cost")
-  
-  var total = 0;
-  document.querySelectorAll(".cost").forEach(x=>total+=Number(x.textContent))
-
-  document.querySelector(".receipt-total-value").innerHTML = total;
-}
-
-</script>

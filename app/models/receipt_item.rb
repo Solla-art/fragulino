@@ -1,5 +1,7 @@
 class ReceiptItem < ActiveRecord::Base
-    has_one :item
-    belongs_to :receipt
+    validates :item, presence: true
+    validates :item_count, presence: true
+    
     belongs_to :item
+    belongs_to :receipt
 end

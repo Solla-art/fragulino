@@ -2,10 +2,12 @@
 <html>
 <head>
   <title><%= yield :page_title %>Thesis</title>
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"><%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   
   <%= csrf_meta_tags %>
   <%= yield :after_css %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 </head>
 <body class=”controller-<%= controller.controller_name.dasherize %> action-<%= controller.action_name.dasherize %>”>
 
@@ -37,7 +39,7 @@
         <%= link_to "Analyze", "/", class: "p-2 text-dark" %>
       <% end %>
 
-      <span class="p-2 text-dark" > Hello, <%= current_account.employee.full_name %>!</span>
+      <span class="p-2 text-dark" > Hello, <%= link_to current_account.employee.full_name, employee_path(current_account.employee) %>!</span>
       <%= link_to('Logout', destroy_account_session_path, method: :delete) %>       
       <% end %>
     </nav>

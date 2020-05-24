@@ -11,9 +11,10 @@ class ReceiptsController < ApplicationController
       @receipts = @receipts.select { |receipt|
         receipt.shop == current_account.employee.shop
       }
+      @shop = current_account.employee.shop
     elsif role == "Administrator"
     else
-     redirect_to "/", alert: "You are not allowed to acess this page."
+     redirect_to "/", alert: "You are not allowed to access this page."
     end
       
   end
@@ -88,6 +89,6 @@ class ReceiptsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def receipt_params
-      params.require(:receipt).permit(:shop_id, :employee_id)
+      params.require(:receipt).permit(:shop_id, :employee_id, :receipt_items_attributes => [:receipt_id, :item_id, :item_count, :id, :_destroy])
     end
 end

@@ -1,17 +1,59 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Shop:</strong>
-  <%= @receipt.shop.name %>
-</p>
+<div class="receipt-show">
+  <div class="header">
+  <b class="item">Receipt #<%=@receipt.id%></b>
+  <span class="item-right">
+    Shop: <b><%=@receipt.shop.name%></b> <br>
+    Employee: <b><%=@receipt.employee.full_name%></b><br>
+    </span>
+  
+  </div> 
+  <table class="table">
+      <thead>
+        <tr>
+          <th scope="col" style="width:10%">#</th>
+          <th scope="col" style="width:80%">Name</th>
+          <th scope="col" style="width:10%">Count</th>
+          <th scope="col" style="width:10%">Price</th>
+          <th scope="col" style="width:10%">Cost</th>
+        </tr>
+      </thead>
+      <tbody class="receipt-items">
+         <% @receipt.receipt_items.each_with_index do |receipt_item, index|%>
+         
+          <tr class="receipt-row">
+            <th scope='row' style='width:10%' class="index"><%= index + 1%></th>
+            <td><%=receipt_item.item.name%></td>
+            <td><%=receipt_item.item_count%></td>
+            <td><%=receipt_item.item.price%></td>
+            <td><%=receipt_item.item.price * receipt_item.item_count%></td>
+          </tr>
+         <% end %>
+      </tr>
+  </table>
 
-<p>
-  <strong>Employee:</strong>
-  <%= @receipt.employee.full_name %>
-</p>
-
-// Readonly form here?
+  <%= link_to 'Edit', edit_receipt_path(@receipt) %> |
+  <%= link_to 'Back', receipts_path %>
+</div>
 
 
-<%= link_to 'Edit', edit_receipt_path(@receipt) %> |
-<%= link_to 'Back', receipts_path %>
+
+
+<style>
+
+.receipt-show {
+    min-width: 200px;
+    max-width: 800px;
+    margin: 0 auto;
+    border-style: solid;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+  }
+  .item-right {
+    text-align: right;
+  }
+
+</style>
