@@ -14,7 +14,7 @@ class ReceiptsController < ApplicationController
       @shop = current_account.employee.shop
     elsif role == "Administrator"
     else
-     redirect_to "/", alert: "You are not allowed to access this page."
+     redirect_to "/", alert: "У вас немає прав для доступу до даної сторінки."
     end
       
   end
@@ -27,7 +27,7 @@ class ReceiptsController < ApplicationController
   # GET /receipts/new
   def new
     if current_account.employee.shop == nil
-      redirect_to({action: "index"}, alert: "You should have a shop assigned to you in order to create receipts.")
+      redirect_to({action: "index"}, alert: "Ви повинні бути прив'язані до магазину для створення замовлень.")
       return
     end
     @receipt = Receipt.new
@@ -49,7 +49,7 @@ class ReceiptsController < ApplicationController
 
     respond_to do |format|
       if @receipt.save
-        format.html { redirect_to @receipt, notice: 'Receipt was successfully created.' }
+        format.html { redirect_to @receipt, notice: 'Замовлення було успішно створене.' }
         format.json { render :show, status: :created, location: @receipt }
       else
         format.html { render :new }
@@ -63,7 +63,7 @@ class ReceiptsController < ApplicationController
   def update
     respond_to do |format|
       if @receipt.update(receipt_params) && @receipt.update_total! 
-        format.html { redirect_to @receipt, notice: 'Receipt was successfully updated.' }
+        format.html { redirect_to @receipt, notice: 'Замовлення було успішно оновлене.' }
         format.json { render :show, status: :ok, location: @receipt }
       else
         format.html { render :edit }
@@ -77,7 +77,7 @@ class ReceiptsController < ApplicationController
   def destroy
     @receipt.destroy
     respond_to do |format|
-      format.html { redirect_to receipts_url, notice: 'Receipt was successfully destroyed.' }
+      format.html { redirect_to receipts_url, notice: 'Замовлення було успішно видалене.' }
       format.json { head :no_content }
     end
   end

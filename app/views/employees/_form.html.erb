@@ -12,18 +12,18 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :full_name %><br>
+    <b>Повне ім'я</b><br>
     <%= f.text_field :full_name %>
   </div>
 
 
   <div class="field">
-      <%= f.label "Shop" %><br />
-      <%= f.select(:shop_id, @shops.collect { |s| [s.name, s.id] }, { include_blank: true } ) %>
+      <b>Магазин</b><br />
+      <%= f.select(:shop_id, @shops.collect { |s| [s.name, s.id] } ) %>
   </div>
   
   <div class="field">
-      <%= f.label "Department" %><br />
+      <b>Відділ</b><br />
       <%= f.select(:department_id, @departments.collect { |d| [d.role, d.id] }, { include_blank: true } ) %>
   </div>
   

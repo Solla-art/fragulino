@@ -1,19 +1,17 @@
-<p id="notice"><%= notice %></p>
-
 <p>
-  <strong>Full name:</strong>
+  <strong>Повне ім'я:</strong>
   <%= @employee.full_name %>
 </p>
 
 <p>
-  <strong>Shop:</strong>
+  <strong>Магазин:</strong>
   <%= @employee.shop_id %>
 </p>
 
 <p>
-  <strong>Department:</strong>
-  <%= @employee.department_id %>
+  <strong>Відділ :</strong>
+  <%= @employee.department.role %>
 </p>
 
-<%= link_to 'Edit', edit_employee_path(@employee) %> |
-<%= link_to 'Back', employees_path %>
+<%= link_to 'Редагувати', edit_employee_path(@employee) %> |
+<%= link_to 'Назад', employees_path %>

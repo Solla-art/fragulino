@@ -7,7 +7,7 @@ class Accounts::RegistrationsController < Devise::RegistrationsController
   def new
     build_resource({})
     resource.build_employee
-    @departments = Department.all
+    @departments = Department.where(role: 'Unassigned')
     respond_with self.resource
   end
   # GET /resource/sign_up
