@@ -1,6 +1,5 @@
      <div class="col-lg-6 col-lg-offset-3 centrate">
-<h2>Log in</h2>
-<% console %>
+<h2>Форма входу</h2>
 <hr>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
@@ -8,12 +7,12 @@
   </div>
 <br>
   <div class="field">
-    <%= f.password_field :password, autocomplete: "off", 'placeholder':'Password', 'style':'width:100%;' %>
+    <%= f.password_field :password, autocomplete: "off", 'placeholder':'Пароль', 'style':'width:100%;' %>
   </div>
 <br>
   
   <div class="actions">
-    <%= f.submit "Log in" , 'style':'width:100%;', 'class': 'btn btn-success'%>
+    <%= f.submit "Увійти" , 'style':'width:100%;', 'class': 'btn btn-success'%>
   </div>
 <% end %>
 <br>

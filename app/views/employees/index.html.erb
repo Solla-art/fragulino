@@ -1,13 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Employees</h1>
+<h1>Список працівнікив</h1>
 
 <table class="table">
   <thead>
     <tr>
-      <th>Full name</th>
-      <th>Shop</th>
-      <th>Department</th>
+      <th>Повне ім'я</th>
+      <th>Магазин</th>
+      <th>Відділ</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,9 +18,9 @@
         <td><%= employee.full_name %></td>
         <td><%= employee.shop ? employee.shop.name : "-" %></td>
         <td><%= employee.department.role %></td>
-        <td><%= link_to 'Show', employee %></td>
-        <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
-        <td><%= link_to 'Destroy', employee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Показати', employee %></td>
+        <td><%= link_to 'Редагувати', edit_employee_path(employee) %></td>
+        <td><%= link_to 'Видалити', employee, method: :delete, data: { confirm: 'Ви впевнені?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Employee', new_employee_path %>
+<%= link_to 'Новий працівник', new_employee_path %>

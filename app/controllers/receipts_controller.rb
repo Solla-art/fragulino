@@ -44,6 +44,8 @@ class ReceiptsController < ApplicationController
   # POST /receipts.json
   def create
     @receipt = Receipt.new(receipt_params)
+    @receipt.update_total
+    @all_items = Item.all
 
     respond_to do |format|
       if @receipt.save
@@ -60,7 +62,7 @@ class ReceiptsController < ApplicationController
   # PATCH/PUT /receipts/1.json
   def update
     respond_to do |format|
-      if @receipt.update(receipt_params)
+      if @receipt.update(receipt_params) && @receipt.update_total! 
         format.html { redirect_to @receipt, notice: 'Receipt was successfully updated.' }
         format.json { render :show, status: :ok, location: @receipt }
       else
@@ -89,6 +91,6 @@ class ReceiptsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def receipt_params
-      params.require(:receipt).permit(:shop_id, :employee_id, :receipt_items_attributes => [:receipt_id, :item_id, :item_count, :id, :_destroy])
+      params.require(:receipt).permit(:shop_id, :employee_id, :total, :receipt_items_attributes => [:receipt_id, :item_id, :item_count, :id, :_destroy])
     end
 end

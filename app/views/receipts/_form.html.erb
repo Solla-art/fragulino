@@ -19,10 +19,10 @@
       <thead>
         <tr>
           <th scope="col" style="width:10%">#</th>
-          <th scope="col" style="width:80%">Name</th>
-          <th scope="col" style="width:10%">Count</th>
-          <th scope="col" style="width:10%">Price</th>
-          <th scope="col" style="width:10%">Cost</th>
+          <th scope="col" style="width:80%">Назва</th>
+          <th scope="col" style="width:10%">Ксть.</th>
+          <th scope="col" style="width:10%">Ціна</th>
+          <th scope="col" style="width:10%">Вартість</th>
         </tr>
       </thead>
       <tbody class="receipt-items">
@@ -32,8 +32,9 @@
       </tbody>
     </table>
 
-    <div class="receipt-total"> Total: <span class="receipt-total-value">0.0</span></div>
-    <%= link_to_add_more_fields "Add newt item", f, :receipt_items, ".receipt-items" %><br>
+    <div class="receipt-total"> Сума: <b><span class="receipt-total-value">0.0</span></b></div>
+    <span style="float:left;padding-left:30px;">
+      <%= link_to_add_more_fields "Додати", f, :receipt_items, ".receipt-items" %></span><br>
     <%= f.submit %>
   <% end %>
 </div>
@@ -54,5 +55,10 @@
   .receipt-items {
     min-height: 300px;
     background-color: #eeeeee;
+  }
+
+  .receipt-total {
+    float: right;
+    padding-right: 20px;
   }
 </style>

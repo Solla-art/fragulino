@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Shops</h1>
+<h1>Список магазинів</h1>
 
 <table class="table">
   <thead>
@@ -14,9 +14,9 @@
     <% @shops.each do |shop| %>
       <tr>
         <td><%= shop.name %></td>
-        <td><%= link_to 'Show', shop %></td>
-        <td><%= link_to 'Edit', edit_shop_path(shop) %></td>
-        <td><%= link_to 'Destroy', shop, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Показати', shop %></td>
+        <td><%= link_to 'Редагувати', edit_shop_path(shop) %></td>
+        <td><%= link_to 'Видалити', shop, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +24,4 @@
 
 <br>
 
-<%= link_to 'New Shop', new_shop_path %>
+<%= link_to 'Новий магазин', new_shop_path %>

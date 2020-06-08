@@ -3,5 +3,5 @@ class ReceiptItem < ActiveRecord::Base
     validates :item_count, presence: true
     
     belongs_to :item
-    belongs_to :receipt
+    belongs_to :receipt, dependent: :destroy
 end

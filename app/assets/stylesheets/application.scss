@@ -14,9 +14,7 @@
 
  @import "bootstrap";
 
-
 .centrate{
-	margin: 0 auto;
 	text-align: center;
 }
 
@@ -250,15 +248,15 @@ bt {
 }
 
 
-    .zoomOverlay {
-        position:absolute;
-        top:0; left:0;
-        bottom:0; right:0;
-        display:none;
-        background-image:url(../img/zoom.png);
-        background-repeat:no-repeat;
-        background-position:center;
-    }
+.zoomOverlay {
+  position:absolute;
+  top:0; left:0;
+  bottom:0; right:0;
+  display:none;
+  background-image:url(../img/zoom.png);
+  background-repeat:no-repeat;
+  background-position:center;
+}
 
 .zoom2 {
 	opacity: 1;
@@ -279,4 +277,13 @@ bt {
 .mejs-container-fullscreen .mejs-captions-layer {
     font-size: 10px;
     line-height: 50px;
+}
+
+
+.alert-alert {
+  @extend .alert-danger;
+}
+
+.alert-notice {
+  @extend .alert-warning;
 }

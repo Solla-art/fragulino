@@ -1,11 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <div class="receipt-show">
+<br>
   <div class="header">
-  <b class="item">Receipt #<%=@receipt.id%></b>
+  <b class="item">Рахунок #<%=@receipt.id%></b>
   <span class="item-right">
-    Shop: <b><%=@receipt.shop.name%></b> <br>
-    Employee: <b><%=@receipt.employee.full_name%></b><br>
+    Магазин: <b><%=@receipt.shop.name%></b> <br>
+    Працівник: <b><%=@receipt.employee.full_name%></b><br>
     </span>
   
   </div> 
@@ -13,15 +14,14 @@
       <thead>
         <tr>
           <th scope="col" style="width:10%">#</th>
-          <th scope="col" style="width:80%">Name</th>
-          <th scope="col" style="width:10%">Count</th>
-          <th scope="col" style="width:10%">Price</th>
-          <th scope="col" style="width:10%">Cost</th>
+          <th scope="col" style="width:80%">Назва</th>
+          <th scope="col" style="width:10%">Ксть.</th>
+          <th scope="col" style="width:10%">Ціна</th>
+          <th scope="col" style="width:10%">Вартість</th>
         </tr>
       </thead>
       <tbody class="receipt-items">
          <% @receipt.receipt_items.each_with_index do |receipt_item, index|%>
-         
           <tr class="receipt-row">
             <th scope='row' style='width:10%' class="index"><%= index + 1%></th>
             <td><%=receipt_item.item.name%></td>
@@ -33,12 +33,14 @@
       </tr>
   </table>
 
-  <%= link_to 'Edit', edit_receipt_path(@receipt) %> |
-  <%= link_to 'Back', receipts_path %>
+  <div class="total" style="float:right;">
+     Сума: <b><%=@receipt.receipt_items.inject(0) { |sum, receipt_item| sum + receipt_item.item.price * receipt_item.item_count }%></b>
+  </div>
+  <span style="float:left;">
+    <%= link_to 'Редагувати', edit_receipt_path(@receipt) %>
+  </span>
+  <br>
 </div>
-
-
-
 
 <style>
 
@@ -47,6 +49,9 @@
     max-width: 800px;
     margin: 0 auto;
     border-style: solid;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
   .header {
     display: flex;

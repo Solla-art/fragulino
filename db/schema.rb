@@ -11,64 +11,75 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200518192616) do
+ActiveRecord::Schema.define(version: 20200603212540) do
 
-  create_table "accounts", force: :cascade do |t|
-    t.integer  "employee_id"
-    t.string   "password"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "accounts", id: :bigserial, force: :cascade do |t|
+    t.integer  "employee_id",            limit: 8
+    t.text     "password"
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.text     "email",                            default: "", null: false
+    t.text     "encrypted_password",               default: "", null: false
+    t.text     "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
   end
 
-  add_index "accounts", ["email"], name: "index_accounts_on_email", unique: true
-  add_index "accounts", ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true
+  add_index "accounts", ["email"], name: "index_accounts_on_email", unique: true, using: :btree
+  add_index "accounts", ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true, using: :btree
 
-  create_table "departments", force: :cascade do |t|
-    t.string   "role"
+  create_table "departments", id: :bigserial, force: :cascade do |t|
+    t.text     "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "employees", force: :cascade do |t|
-    t.string   "full_name"
-    t.integer  "shop_id"
-    t.integer  "department_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+  create_table "employees", id: :bigserial, force: :cascade do |t|
+    t.text     "full_name"
+    t.integer  "shop_id",       limit: 8
+    t.integer  "department_id", limit: 8
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
-  create_table "items", force: :cascade do |t|
-    t.string   "name"
-    t.string   "descripton"
+  create_table "items", id: :bigserial, force: :cascade do |t|
+    t.text     "name"
+    t.text     "descripton"
     t.float    "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "receipt_items", force: :cascade do |t|
-    t.integer  "receipt_id"
-    t.integer  "item_id"
-    t.integer  "item_count"
+  create_table "receipt_items", id: :bigserial, force: :cascade do |t|
+    t.integer  "receipt_id", limit: 8
+    t.integer  "item_id",    limit: 8
+    t.integer  "item_count", limit: 8
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "receipts", id: :bigserial, force: :cascade do |t|
+    t.integer  "shop_id",     limit: 8
+    t.integer  "employee_id", limit: 8
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.float    "total"
+  end
+
+  create_table "shops", id: :bigserial, force: :cascade do |t|
+    t.text     "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "receipts", force: :cascade do |t|
-    t.integer  "shop_id"
-    t.integer  "employee_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  create_table "shops", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
+  add_foreign_key "accounts", "employees"
+  add_foreign_key "employees", "departments"
+  add_foreign_key "employees", "shops"
+  add_foreign_key "receipt_items", "items"
+  add_foreign_key "receipt_items", "receipts"
+  add_foreign_key "receipts", "employees"
+  add_foreign_key "receipts", "shops"
 end

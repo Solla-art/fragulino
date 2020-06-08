@@ -14,33 +14,33 @@
 
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
 
-    <h4 class="my-0 mr-md-auto font-weight-normal">Oogle inc.</h4>
+  <h4 class="my-0 mr-md-auto font-weight-normal">Містер Маріо</h4>
     <nav class="my-2 my-md-0 mr-md-3">
     <% if account_signed_in? %>
       <% role =  current_account.employee.department.role %>
       <% if role == "Seller" %>
-        <%= link_to "New order", {controller: "receipts", action: "new"}, class: "p-2 text-dark" %>
-        <%= link_to "Order history", {controller: "receipts", action: "index"}, class: "p-2 text-dark" %>
+        <%= link_to "Нове замовлення", {controller: "receipts", action: "new"}, class: "p-2 text-dark" %>
+        <%= link_to "Історія замовлень", {controller: "receipts", action: "index"}, class: "p-2 text-dark" %>
       <% end %>
 
       <% if role == "HR department" %>
-        <%= link_to "Employees", {controller: "employees", action: "index"}, class: "p-2 text-dark" %>
+        <%= link_to "Працівники", {controller: "employees", action: "index"}, class: "p-2 text-dark" %>
       <% end %>
 
       <% if role == "Administrator" %>
-        <%= link_to "Accounts", {controller: "/accounts", action: "index"}, class: "p-2 text-dark" %>
-        <%= link_to "Employees", {controller: "/employees", action: "index"}, class: "p-2 text-dark" %>
-        <%= link_to "Departments", {controller: "/departments", action: "index"}, class: "p-2 text-dark" %>
-        <%= link_to "Shops", {controller: "/shops", action: "index"}, class: "p-2 text-dark" %>
-        <%= link_to "Analyze", "/", class: "p-2 text-dark" %>
+        <%= link_to "Облікові записи", {controller: "/accounts", action: "index"}, class: "p-2 text-dark" %>
+        <%= link_to "Працівники", {controller: "/employees", action: "index"}, class: "p-2 text-dark" %>
+        <%= link_to "Відділи", {controller: "/departments", action: "index"}, class: "p-2 text-dark" %>
+        <%= link_to "Магазини", {controller: "/shops", action: "index"}, class: "p-2 text-dark" %>
+        <%= link_to "Провести аналіз", "http://localhost:8888/tree", class: "p-2 text-dark" %>
       <% end %>
 
       <% if role == "Analyst" %>
-        <%= link_to "Analyze", "/", class: "p-2 text-dark" %>
+        <%= link_to "Провести аналіз", "http://localhost:8888/tree/OLAP", class: "p-2 text-dark" %>
       <% end %>
 
-      <span class="p-2 text-dark" > Hello, <%= link_to current_account.employee.full_name, employee_path(current_account.employee) %>!</span>
-      <%= link_to('Logout', destroy_account_session_path, method: :delete) %>       
+      <span class="p-2 text-dark" > Ласкаво просимо, <%= link_to current_account.employee.full_name, employee_path(current_account.employee) %>!</span>
+      <%= link_to('Вийти', destroy_account_session_path, method: :delete) %>       
       <% end %>
     </nav>
   </div>
@@ -48,9 +48,13 @@
 <div class="container">
   <div class="mt">
     <div class="centrate">
-      <p class="notice"><%= notice %></p>
       <br>
-      <p class="alert"><%= alert %></p>
+      <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %> alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <%= value %>
+        </div>
+      <% end %>
       <br>
       <%= yield %>  
     </div>
