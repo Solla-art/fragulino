@@ -31,14 +31,15 @@
         <%= link_to "Облікові записи", {controller: "/accounts", action: "index"}, class: "p-2 text-dark" %>
         <%= link_to "Працівники", {controller: "/employees", action: "index"}, class: "p-2 text-dark" %>
         <%= link_to "Магазини", {controller: "/shops", action: "index"}, class: "p-2 text-dark" %>
-        <%= link_to "Провести аналіз", "http://localhost:8888/tree", class: "p-2 text-dark" %>
+        <%= link_to "Товари", {controller: "/items", action: "index"}, class: "p-2 text-dark" %>
+        <%= link_to "Провести аналіз", {controller: "/static_pages", action: "analysis"}, class: "p-2 text-dark" %>
       <% end %>
 
       <% if role == "Analyst" %>
-        <%= link_to "Провести аналіз", "http://localhost:8888/tree/OLAP", class: "p-2 text-dark" %>
+        <%= link_to "Провести аналіз", {controller: "/static_pages", action: "analysis"}, class: "p-2 text-dark" %>
       <% end %>
 
-      <span class="p-2 text-dark" > Ласкаво просимо, <%= link_to current_account.employee.full_name, employee_path(current_account.employee) %>!</span>
+      <span class="p-2 text-dark" > Ласкаво просимо, <%= current_account.employee.full_name %>!</span>
       <%= link_to('Вийти', destroy_account_session_path, method: :delete) %>       
       <% end %>
     </nav>

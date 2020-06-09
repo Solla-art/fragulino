@@ -27,6 +27,7 @@ class AccountsController < ApplicationController
   # POST /accounts.json
   def create
     @account = Account.new(account_params)
+    @departments = Department.all
 
     respond_to do |format|
       if @account.save
